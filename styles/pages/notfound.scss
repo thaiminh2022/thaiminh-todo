@@ -1,0 +1,21 @@
+@import "../global_varibles.scss";
+
+.nf {
+    display: flex;
+    place-items: center;
+    width: 100%;
+    height: 100vh;
+    background: $bg-blue-300;
+    color: white;
+
+    h1 {
+        font-size: $fs-6xl;
+        font-weight: 900;
+        text-align: center;
+
+        &:hover {
+            color: hsl(213, 0%, 95%);
+            text-decoration: underline;
+        }
+    }
+}

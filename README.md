@@ -1,21 +1,30 @@
-# tailwindcss-yew-template
-Simple layout for using Tailwindcss with Yew.
+# MULTI-BILIONS dollars todos app
+
+## Table of contents
+
+* Hello World!
+  * Hello
+  * World
+* Hello __World 2__
+  * _Hello_
+  * World
+  * 2
 
 ## Installation
-Install tailwindcss and relevant tools. Make sure **node** and **rust** is installed on your system!
 
-```Bash
-npm run setup
+This codebase use Rust with __Yew as frontend__ and __Firebase for backend__.
+To get started, clone the project and run:
+
+```bash
+cargo install trunk 
+trunk serve
 ```
 
-### Clone repository
+__NOTICE: You might wanna run `npm install` for all the dependencies__
 
-**Dev server:**
-```
-npm run dev
-```
-
-**Production:**
-```
-npm run prod
+```Rust
+public fn Add(num1:i32, num2:i32) -> i32
+{
+    return num1 + num2;
+}
 ```

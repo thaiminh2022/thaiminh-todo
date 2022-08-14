@@ -1,0 +1,21 @@
+@import "./global_varibles.scss";
+
+
+
+.generic-btn {
+    background: $bg-blue-400;
+    border: none;
+    border-radius: .69rem;
+    color: white;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 500;
+
+    word-wrap: break-word;
+
+    cursor: pointer;
+
+    &:hover {
+        background: $bg-blue-450;
+    }
+
+}

@@ -1,0 +1,241 @@
+@import "../global_varibles.scss";
+
+
+html {
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+
+.mp {
+    background: $bg-blue-300;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-height: 100vh;
+
+
+    .header {
+        width: 95%;
+
+        text-align: center;
+        font-size: $fs-6xl;
+        font-weight: 300;
+
+        margin-top: 20px;
+        margin-inline: auto;
+
+        h1 {
+            font-weight: 700;
+
+        }
+
+        p {
+            font-size: $fs-md;
+        }
+
+    }
+
+    .input-form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2.5rem;
+
+        height: 50%;
+
+    }
+
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2.5rem;
+        width: 75%;
+        margin-inline: auto;
+        font-weight: 500;
+
+        input {
+            width: 100%;
+            height: calc(75/16 * 1rem);
+            font-size: $fs-2xl;
+
+            border: .75rem solid whitesmoke;
+        }
+
+        textarea {
+            width: 100%;
+            resize: vertical;
+            margin-top: 3rem;
+            font-size: $fs-2xl;
+
+            border: .75rem solid whitesmoke;
+        }
+
+
+    }
+
+    .btns {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 1rem;
+        grid-auto-flow: dense;
+        height: max-content;
+
+        margin-inline: auto;
+
+        width: min(90%, 75rem);
+        padding: 1rem;
+
+        font-size: $fs-2xl;
+
+
+        .submit-btn {
+            background: none;
+            color: white;
+            border: none;
+            font-size: inherit;
+            padding: inherit;
+            cursor: pointer;
+
+            &:hover {
+                color: hsl(100, 0%, 90%);
+            }
+
+        }
+
+        .generic-btn {
+            font-size: inherit;
+            padding: inherit;
+        }
+
+
+
+    }
+
+
+    .todos {
+        flex-grow: 1;
+        resize: vertical;
+        width: 95%;
+        margin-top: 10px;
+        margin-inline: auto;
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+        .item-wrapper {
+            display: flex;
+            flex-direction: column;
+            word-wrap: break-word;
+
+        }
+
+        .item-data {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            font-size: $fs-2xl;
+            resize: vertical;
+
+            h2 {
+                font-weight: 700;
+                font-size: $fs-xl;
+                margin-block: .5em;
+            }
+
+            .item-todo {
+                font-size: inherit;
+                border: none;
+                background-color: white;
+                transition: background-color 100ms ease-in-out;
+
+                resize: inherit;
+            }
+
+            .item-todo-finish {
+                background-color: greenyellow;
+                text-decoration: line-through;
+            }
+
+            .item-desc {
+                font-size: inherit;
+                resize: inherit;
+            }
+        }
+
+        .item-btn {
+            margin-top: calc(1rem - 6px);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            column-gap: 2rem;
+            font-size: $fs-2xl;
+
+            .generic-btn {
+                font-size: inherit;
+                padding: inherit;
+            }
+        }
+    }
+
+
+    @media screen and (min-width: 69em) {
+        .header {
+            font-size: $fs-3xl;
+        }
+
+        .inputs {
+            textarea {
+                font-size: calc($fs-xl + 5px);
+
+                margin-top: 1rem;
+                height: calc(182/16 * 1rem);
+                border: .3rem solid hsl(100, 0%, 90%, 0);
+
+                transition: border-color .25s ease;
+
+                &:hover {
+                    border: .3rem solid $bg-blue-450;
+                }
+            }
+
+            input {
+                font-size: calc($fs-xl + 5px);
+                border: none;
+                height: calc(30/16 * 1rem);
+                border: .3rem solid hsl(100, 0%, 90%, 0);
+                transition: border-color .25s ease;
+
+                &:hover {
+                    border: .3rem solid $bg-blue-450;
+                }
+            }
+        }
+
+        .input-form {
+            margin-top: .5rem;
+        }
+
+        .btns {
+            font-size: calc($fs-xl + 5px);
+            padding: 1rem;
+
+            margin-top: .5rem;
+        }
+
+        .todos {
+            .item-btn {
+                font-size: $fs-xl;
+                padding: .7rem;
+            }
+
+            .item-data {
+                font-size: calc($fs-xl + 5px);
+            }
+
+        }
+
+    }
+
+}

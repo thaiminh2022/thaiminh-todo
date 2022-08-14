@@ -1,0 +1,182 @@
+@import "../global_varibles.scss";
+
+.ct {
+    width: 100%;
+    min-height: 100vh;
+    background: $bg-blue-300;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    .header {
+        font-size: 15rem;
+
+        width: fit-content;
+        height: fit-content;
+
+        margin-inline: auto;
+
+        display: flex;
+        flex-direction: column;
+
+
+        column-gap: 2rem;
+
+
+        .time-input {
+
+            border: none;
+            outline: none;
+            background: none;
+
+            width: 20rem;
+
+            text-align: center;
+            font-size: inherit;
+            font-weight: 900;
+            color: white;
+
+            text-overflow: ellipsis;
+            overflow-x: hidden;
+
+
+            appearance: textfield;
+
+
+            z-index: 0;
+
+
+            &:nth-child(2) {
+                border-block: 2.5rem solid white;
+                padding-block: 2.5rem;
+            }
+        }
+
+
+    }
+
+
+
+    // overlay ---------------------
+    .black-overlay {
+        position: absolute;
+        inset: 0;
+
+        width: 100%;
+        height: 100%;
+
+        margin: 0px;
+
+
+        background: rgb(2, 0, 36);
+        background: linear-gradient(90deg, rgba(2, 0, 36, 0.7) 0%, rgba(0, 0, 0, 0.65) 50%, rgba(0, 0, 0, 0.7) 100%);
+        border: none;
+
+        opacity: 1;
+        transition: opacity 150ms cubic-bezier(0.165, 0.84, 0.44, 1);
+        z-index: 1;
+    }
+
+    .none-overlay {
+        opacity: 0;
+        z-index: -2;
+        margin-top: auto;
+        height: min(25%, 20rem);
+    }
+
+    // overlay-end ---------------------
+
+    .open-options {
+        position: absolute;
+
+
+    }
+
+    .options {
+        width: fit-content;
+        height: fit-content;
+        z-index: 2;
+
+        .option-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            display: flex;
+
+            // flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+
+            color: white;
+            font-size: $fs-3xl;
+
+
+            input {
+                width: 3rem;
+                aspect-ratio: 1;
+            }
+
+            .btns {
+                display: flex;
+                flex-direction: column;
+                font-size: $fs-6xl;
+                gap: 3rem;
+
+                .generic-btn {
+                    font-size: inherit;
+                    padding: 1rem;
+                    border-radius: 1rem;
+                }
+            }
+
+
+        }
+    }
+
+    @media screen and (min-width: 992px),
+    (orientation: landscape) {
+        .header {
+            font-size: 10rem;
+            flex-direction: row;
+            padding-block: 6.9rem;
+            padding-inline: 0;
+
+            .time-input {
+                width: 15rem;
+
+                &:nth-child(2) {
+                    border: none;
+                    padding: 0;
+
+                    border-inline: 2.5rem dotted white;
+                    padding-inline: 2.5rem;
+                }
+            }
+
+        }
+
+        .options {
+
+            .option-wrapper {
+                font-size: $fs-2xl;
+
+                .btns {
+                    padding: .3rem;
+                    font-size: $fs-2xl;
+                }
+            }
+
+        }
+    }
+
+}
