@@ -3,7 +3,8 @@ WARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (fil
 WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil
 WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
 WARNING: All illegal access operations will be denied in a future release
-18:36:29.356 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-18:36:29.618 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
-18:36:39.568 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - todro-d5ef1-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 231ms, init: 0ms
-18:36:39.653 [NamespaceSystem-blocking-namespace-operation-dispatcher-8:todro-d5ef1-default-rtdb$1639106031:] INFO com.firebase.core.namespace.StateManager - Namespace todro-d5ef1-default-rtdb status Active to Active
+22:02:44.795 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+22:02:45.066 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
+22:03:00.325 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - todro-d5ef1-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 223ms, init: 0ms
+22:03:00.439 [NamespaceSystem-blocking-namespace-operation-dispatcher-6:todro-d5ef1-default-rtdb$-2008933458:] INFO com.firebase.core.namespace.StateManager - Namespace todro-d5ef1-default-rtdb status Active to Active
+22:03:10.115 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - todro-d5ef1 successfully activated FBKV (SurveyIdle(0)) wait: 2ms, init: 0ms

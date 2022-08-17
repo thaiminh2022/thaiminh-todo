@@ -5,8 +5,8 @@
     place-items: center;
     width: 100%;
     height: 100vh;
-    background: $bg-blue-300;
-    color: white;
+    background: var(--bg-primary-300);
+    color: var(--fc-white);
 
     h1 {
         font-size: $fs-6xl;
@@ -14,7 +14,7 @@
         text-align: center;
 
         &:hover {
-            color: hsl(213, 0%, 95%);
+            color: darken($color: white, $amount: 5%);
             text-decoration: underline;
         }
     }

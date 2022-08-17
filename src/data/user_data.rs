@@ -8,7 +8,7 @@ pub struct UserData {
 }
 
 impl UserData {
-    pub fn new(uid: &str) -> Self {
+    pub fn _new(uid: &str) -> Self {
         Self {
             uid: uid.to_string(),
         }

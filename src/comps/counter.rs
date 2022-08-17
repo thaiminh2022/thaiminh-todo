@@ -13,11 +13,13 @@ pub struct Counter {
 
     interval: Option<Interval>,
     options_active: bool,
+    editing_field: usize,
 }
 
 pub enum Msg {
     StartCount,
     StopCount,
+    Reset,
 
     ToggleTimerType,
     ToggleActive,
@@ -31,7 +33,7 @@ impl Component for Counter {
     type Message = Msg;
     type Properties = ();
 
-    fn create(ctx: &Context<Self>) -> Self {
+    fn create(_ctx: &Context<Self>) -> Self {
         Self {
             count_time: 0,
             is_count_down: true,
@@ -40,6 +42,8 @@ impl Component for Counter {
 
             interval: None,
             options_active: false,
+
+            editing_field: usize::MAX,
         }
     }
 
@@ -48,6 +52,8 @@ impl Component for Counter {
 
         let start_count = link.callback(|_| Msg::StartCount);
         let stop_count = link.callback(|_| Msg::StopCount);
+        let reset_count_down = link.callback(|_| Msg::Reset);
+
         let toggle_count_down = link.callback(|_: MouseEvent| Msg::ToggleTimerType);
 
         let toggle_on_top = link.callback(|_| Msg::ToggleActive);
@@ -72,7 +78,9 @@ impl Component for Counter {
                 class = "time-input"
                 readonly = {self.started_counting}
                 onchange = {on_input_field_change}
-                value = {num.to_string()}
+                value = {
+                    num.to_string()
+                }
                 />
 
             }
@@ -96,7 +104,11 @@ impl Component for Counter {
 
                 }></button>
 
-                // <CustomButton extra_class = "open-options" onclick = {toggle_on_top.clone()} text = "+"/>
+                <div class="hint">
+                    <h1>{"Hint!"}</h1>
+                    <p>{"Change time by click numer"}</p>
+                    <p>{"Click bottom of screen for options"}</p>
+                </div>
 
                 <div hidden = {!self.options_active} class="options">
                     <div class="option-wrapper">
@@ -105,20 +117,21 @@ impl Component for Counter {
                             <input id ="count-type-toggle" type="checkbox" checked = {self.is_count_down} onclick = {toggle_count_down}/>
                             <label for="count-type-toggle">{
                                 if self.is_count_down == false{
-                                    "Counting up!!"
+                                    "👆🏻 Count Up!!"
                                 }
                                 else{
-                                    "Counting down!!"
+                                    "👇🏻 Count Down!!"
                                 }
-
-
                             }</label>
                         </div>
 
 
+
                         <div class="btns">
-                           <CustomButton onclick = {start_count} text = "Start Count"/>
-                           <CustomButton onclick  = {stop_count} text = "Stop Count" />
+                           <CustomButton onclick = {start_count} text = "⌚Start"/>
+                           <CustomButton onclick  = {stop_count} text = "🛑Stop" />
+                           <CustomButton onclick  = {reset_count_down} text = "💀Reset" />
+
                         </div>
                     </div>
 
@@ -155,7 +168,7 @@ impl Component for Counter {
                     self.count_time -= 1;
 
                     if self.count_time <= 0 {
-                        gloo::console::log!("FINISH!");
+                        gloo::console::log!("🎉 FINISH!");
 
                         self.cancle();
                         self.count_time = 0;
@@ -171,6 +184,8 @@ impl Component for Counter {
                 self.options_active = !self.options_active;
             }
             Msg::Update(i, s) => {
+                self.editing_field = i;
+
                 let default_num = self.count_time.clone() as f64;
                 let mut final_num = 0_f64;
                 let mut num: f64 = s.parse().unwrap_or_default();
@@ -208,6 +223,11 @@ impl Component for Counter {
                 }
 
                 self.count_time = final_num as i64;
+                self.editing_field = usize::MAX;
+            }
+            Msg::Reset => {
+                self.cancle();
+                self.reset();
             }
         }
 
@@ -218,5 +238,11 @@ impl Component for Counter {
 impl Counter {
     fn cancle(&mut self) {
         self.interval = None;
+    }
+    fn reset(&mut self) {
+        self.count_time = 0;
+        self.is_count_down = true;
+        self.options_active = false;
+        self.started_counting = false;
     }
 }

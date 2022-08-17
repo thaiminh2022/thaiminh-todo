@@ -26,6 +26,19 @@ impl TodoData {
             toggle_desc: false,
         }
     }
+    pub fn _clean() -> Self {
+        Self {
+            todo: "".to_string(),
+            desc: "".to_string(),
+            time_created: format!(
+                "{} {}",
+                Local::now().date_naive(),
+                Local::now().time().format("%H:%M:%S")
+            ),
+            finish: false,
+            toggle_desc: false,
+        }
+    }
 
     pub fn clear(&mut self) {
         self.todo = "".to_string();

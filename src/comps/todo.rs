@@ -1,3 +1,4 @@
+use gloo_timers::future::TimeoutFuture;
 use yew::prelude::*;
 
 use super::super::bridge::*;
@@ -57,9 +58,15 @@ impl Component for Model {
                 return html! {};
             }
 
+            let mut final_class = String::from("item");
+
+            if self.edit_mode == true && self.edit_item_index != index {
+                final_class.push_str(" opacity-5");
+            }
+
             html! {
 
-                <li class = "item">
+                <li class = {final_class}>
                     <div class = "item-wrapper">
                         <div class = "item-data">
                             <textarea
@@ -101,24 +108,24 @@ impl Component for Model {
                         <div class = "item-btn">
 
                             if {self.edit_mode == false}{
-                                <CustomButton onclick = {link.callback(move |_| Msg::Remove(index))} text = "Remove"/>
+                                <CustomButton onclick = {link.callback(move |_| Msg::Remove(index))} text = "🗑️"/>
                             }
 
-                            <CustomButton onclick = {link.callback(move |_| Msg::Edit(index))} text = "Edit"/>
+                            <CustomButton onclick = {link.callback(move |_| Msg::Edit(index))} text = "📝"/>
 
+
+                            if data.desc.trim().is_empty() == false{
+                                <CustomButton onclick = {link.callback(move |_| Msg::ToggleDesc(index))} text = "🤔"/>
+                            }
                             <CustomButton onclick = {link.callback(move |_| Msg::ToggleFinish(index))} text = {
                                 if data.finish {
-                                    "!Finish"
+                                    "❌"
                                 }
                                 else{
-                                    "Finish"
+                                    "✅"
                                 }
 
                             } class =""/>
-
-                            if data.desc.trim().is_empty() == false{
-                                <CustomButton onclick = {link.callback(move |_| Msg::ToggleDesc(index))} text = "More" class =""/>
-                            }
 
                         </div>
                     </div>
@@ -145,7 +152,7 @@ impl Component for Model {
             <div class = "mp">
                 <header class = "header">
                 <h1 class ="">{"MULTI-BILIONS TODO APP"}</h1>
-                <p>{"desciptive stuff"}</p>
+                // <p>{"desciptive stuff"}</p>
 
 
 
@@ -177,13 +184,13 @@ impl Component for Model {
 
                     <div class ="btns">
                         if {self.edit_mode == false} {
-                            <button class ="submit-btn" type = "submit" onclick = {on_submit}>{"Submit"}</button>
+                            <button class ="submit-btn" type = "submit" onclick = {on_submit}>{"➕ Add"}</button>
                         }else{
-                            <button class ="submit-btn" type = "submit" onclick = {on_update_submit}>{"Update"}</button>
+                            <button class ="submit-btn" type = "submit" onclick = {on_update_submit}>{"👍🏻 Update"}</button>
                         }
-                        <CustomButton onclick = {link.callback(|_| Msg::RemoveAll)} text = "Remove All" />
-                        <CustomButton onclick = {link.callback(|_| Msg::FetchDatabase)} text = "Fetch" />
-                        <CustomButton onclick = {link.callback(|_| Msg::SaveDatabase)} text = "Save" />
+                        <CustomButton onclick = {link.callback(|_| Msg::RemoveAll)} text = "💀 Purge" />
+                        <CustomButton onclick = {link.callback(|_| Msg::FetchDatabase)} text = "📩 Load" />
+                        <CustomButton onclick = {link.callback(|_| Msg::SaveDatabase)} text = "💾 Save" />
                     </div>
 
                     <div class ="todos">
@@ -231,6 +238,7 @@ impl Component for Model {
                 self.todos.remove(i);
             }
             Msg::RemoveAll => {
+                self.input.clear();
                 self.todos = vec![];
             }
             Msg::Log(s) => {
@@ -270,14 +278,24 @@ impl Component for Model {
             }
             Msg::SaveDatabase => {
                 self.edit_mode = false;
+                let data = self.to_json();
+                let link = ctx.link().clone();
 
-                log_json(&self.to_json());
-                write_data("user_1".to_string(), self.to_json());
+                wasm_bindgen_futures::spawn_local(async move {
+                    let data_uid = get_user_uid().await;
+
+                    match data_uid {
+                        Ok(s) => write_data(s.as_string().unwrap_or("user_1".to_string()), data),
+                        Err(_) => write_data("user_1".to_string(), data),
+                    };
+
+                    link.send_message(Msg::Update(TodoData::new("Saved 👌🏻", "have a nice day")));
+                });
             }
             Msg::FetchDatabase => {
                 self.edit_mode = false;
 
-                self.input.todo = "Fetching...".to_string();
+                self.input.todo = "Fetching...🥱".to_string();
                 self.input.desc =
                     "Dont worry, firebase usually quick...\n Unless my plan has expired"
                         .to_string();
@@ -291,6 +309,18 @@ impl Component for Model {
         }
         true
     }
+
+    fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
+        if first_render {
+            let link = ctx.link().clone();
+
+            wasm_bindgen_futures::spawn_local(async move {
+                TimeoutFuture::new(500).await;
+                // Do something here after the one second timeout is up!
+                link.send_message(Msg::FetchDatabase);
+            })
+        }
+    }
 }
 
 impl Model {
@@ -299,9 +329,16 @@ impl Model {
 
         return json_result;
     }
-    pub async fn fetch_database() -> Msg {
-        let data: Model = take_data().await.into_serde().unwrap_or_default();
 
+    pub async fn fetch_database() -> Msg {
+        let data_uid = get_user_uid().await;
+
+        let user_uid = match data_uid {
+            Ok(s) => s.as_string().unwrap_or("user_1".to_string()),
+            Err(_) => "user_1".to_string(),
+        };
+
+        let data: Model = take_data(user_uid).await.into_serde().unwrap_or_default();
         return Msg::SetAll(data.input, data.todos);
     }
 }

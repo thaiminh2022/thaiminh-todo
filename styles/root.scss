@@ -1,0 +1,51 @@
+:root {
+
+    /* default color theme */
+    --bg-primary-300: hsl(212, 96%, 78%);
+    --bg-primary-400: hsl(213, 94%, 69%);
+    --bg-primary-450: hsl(213, 96%, 65%);
+
+    --fc-white: white;
+    --fc-header: black;
+    --fc-message: red;
+
+    --bg-todo-default: white;
+    --bg-todo-finished: greenyellow;
+
+    --nav-bar-bg:hsl(213, 94%, 69%);
+    --nav-item-hover: #ffc107;
+    --menu-btn-color: hsl(213, 96%, 60%);
+    --side-bar-bg: hsla(212, 96%, 73%);
+
+}
+
+html {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+
+    
+}
+
+.dark-mode {
+
+    &>* {
+        --bg-primary-300: hsl(218, 23%, 21%);
+        --bg-primary-400: #3D5A80;
+        --bg-primary-450: #98C1D9;
+
+        --fc-white: white;
+        --fc-message: #EE6C4D;
+        --fc-header: hsl(182, 82%, 93%);
+
+        --nav-bar-bg: #232332;
+        --side-bar-bg: var(--nav-bar-bg);
+        --nav-item-hover: #ffc107;
+        --menu-btn-color: rgba(0, 136, 169, 1);
+
+        transition: background, color, background-color 300ms ease;
+    }
+    
+
+}

@@ -1,0 +1,196 @@
+@import "../generic.scss";
+
+.lp {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-primary-300);
+
+    text-align: center;
+
+    button {
+        cursor: pointer;
+    }
+
+    .header {
+        margin-bottom: 8rem;
+        color: var(--fc-header);
+
+        .logo {
+            font-size: $fs-6xl;
+            font-weight: 700;
+        }
+
+        .login-msg {
+            font-size: $fs-3xl;
+        }
+    }
+
+    .log-wrapper {
+        width: min(80%, 69rem);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-inline: auto;
+
+        font-size: $fs-3xl;
+
+        input {
+            width: 100%;
+            outline: none;
+            border: none;
+            height: 10rem;
+            border-radius: .5rem;
+            margin-top: 1rem;
+
+            font-size: inherit;
+        }
+
+        .login {
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .login-error {
+            width: 100%;
+            color: var(--fc-message);
+            text-align: center;
+            font-size: $fs-2xl;
+        }
+
+        .forgot-password {
+            border: none;
+            background: none;
+            color: var(--fc-white);
+            font-size: $fs-2xl;
+            text-align: right;
+            text-decoration: underline;
+        }
+
+    }
+
+    .btns {
+        display: grid;
+        font-size: 3rem;
+        width: 90%;
+        margin-inline: auto;
+        height: 20rem;
+        margin-top: 2rem;
+
+        row-gap: 1rem;
+
+        .generic-btn {
+            font-size: inherit;
+        }
+    }
+
+    .extra {
+        display: flex;
+        flex-direction: column;
+        margin-top: 3rem;
+
+        font-size: $fs-3xl;
+        color: var(--fc-white);
+
+        .extra-login {
+            margin-top: 3rem;
+            padding: 1rem;
+            border-top: .5rem solid white;
+        }
+
+        .extra-btns {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .extra-btn {
+            display: grid;
+            place-items: center;
+            background-color: white;
+            width: 7rem;
+            aspect-ratio: 1;
+
+            border-radius: 50%;
+            border: none;
+
+            transition: background-color 150ms ease;
+
+            &:hover {
+                background-color: hsl(0, 0%, 95%);
+            }
+        }
+
+        .extra-btn-icon {
+            font-size: $fs-4xl;
+        }
+
+
+    }
+
+    @media screen and (min-width: 69em),
+    (orientation: landscape) {
+        .header {
+            margin-bottom: 0;
+
+            .logo {
+                font-size: $fs-6xl;
+            }
+
+            .login-msg {
+                font-size: $fs-3xl;
+            }
+        }
+
+        .log-wrapper {
+            font-size: $fs-2xl;
+
+            input {
+                height: 5rem;
+            }
+
+            .login-error {
+                font-size: 1.3rem;
+            }
+
+            .forgot-password {
+                font-size: 1.5rem;
+            }
+        }
+
+        .btns {
+            grid-auto-flow: column;
+            height: 4rem;
+            width: min(80%, 69rem);
+            column-gap: 1rem;
+            font-size: 1.5rem;
+            padding: 0;
+        }
+
+        .extra {
+            font-size: $fs-xl;
+            margin-top: 1rem;
+
+            .extra-login {
+                margin-top: 1rem;
+            }
+
+            .extra-btns {
+                margin-top: 1rem;
+            }
+
+            .extra-btn {
+                width: 5rem;
+            }
+        }
+    }
+}
