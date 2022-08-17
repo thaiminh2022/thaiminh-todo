@@ -128,7 +128,7 @@ impl Component for App {
                 // flip the dark mode
                 self.dark_mode_active = !self.dark_mode_active;
             }
-            Msg::Nothing => (),
+            Msg::Nothing => return false,
         }
 
         true

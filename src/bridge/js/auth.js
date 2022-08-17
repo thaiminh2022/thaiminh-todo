@@ -36,14 +36,14 @@ async function signInGoogle() {
     setPersistence(auth, browserSessionPersistence);
 
     if (window.mobileAndTabletCheck() === false) {
-        let userCredentials = await signInWithPopup(auth, provider);
+        const userCredentials = await signInWithPopup(auth, provider);
 
         return userCredentials;
     }
     else {
-        let userCredentials = await signInWithRedirect(auth, provider);
+        const userCredentials2 = await signInWithRedirect(auth, provider);
 
-        return userCredentials;
+        return userCredentials2;
     }
 }
 
