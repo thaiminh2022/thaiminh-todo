@@ -52,9 +52,11 @@
     }
     .nav-links{
         list-style: none;
+        display: flex;
+        flex-direction: row;
 
         li{
-            display: inline-block;
+
             padding: 0px 1.25rem;
 
             .generic-btn{
@@ -160,11 +162,11 @@
     }
 
         li a {
-            display: flex;
+            display: inherit;
         }
 
         .user-name {
-            display: flex;
+            display: inherit;
             font-size: $fs-xl;
         }
     } 
