@@ -17,4 +17,5 @@ extern "C" {
 
     #[wasm_bindgen(catch)]
     pub fn get_user_display_name() -> Result<JsValue, JsValue>;
+
 }

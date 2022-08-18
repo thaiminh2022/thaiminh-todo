@@ -1,7 +1,6 @@
 use std::{collections::HashMap, fmt::Error};
 
 use gloo_timers::future::TimeoutFuture;
-use wasm_bindgen::UnwrapThrowExt;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
