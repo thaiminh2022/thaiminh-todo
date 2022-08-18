@@ -70,7 +70,7 @@ impl Component for Model {
                     <div class = "item-wrapper">
                         <div class = "item-data">
                             <textarea
-                                value =  {format!("Todo {}: {}\nDate: {}", index+1, data.todo.clone(), data.time_created)}
+                                value =  {format!("Todo {}: {}\nDate: {}", index, data.todo.clone(), data.time_created)}
                                 class = {
                                     let mut class_data =
                                     "item-todo".to_string();
@@ -282,11 +282,15 @@ impl Component for Model {
                 let link = ctx.link().clone();
 
                 wasm_bindgen_futures::spawn_local(async move {
-                    let data_uid = get_user_uid().await;
+                    let data_uid = get_user_uid();
 
                     match data_uid {
-                        Ok(s) => write_data(s.as_string().unwrap_or("user_1".to_string()), data),
-                        Err(_) => write_data("user_1".to_string(), data),
+                        Ok(s) => write_data(
+                            s.as_string().unwrap_or("user_1".to_string()),
+                            "/todoData".to_string(),
+                            data,
+                        ),
+                        Err(_) => write_data("user_1".to_string(), "/todoData".to_string(), data),
                     };
 
                     link.send_message(Msg::Update(TodoData::new("Saved 👌🏻", "have a nice day")));
@@ -331,14 +335,17 @@ impl Model {
     }
 
     pub async fn fetch_database() -> Msg {
-        let data_uid = get_user_uid().await;
+        let data_uid = get_user_uid();
 
         let user_uid = match data_uid {
             Ok(s) => s.as_string().unwrap_or("user_1".to_string()),
             Err(_) => "user_1".to_string(),
         };
 
-        let data: Model = take_data(user_uid).await.into_serde().unwrap_or_default();
+        let data: Model = take_data(user_uid, "/todoData".to_string())
+            .await
+            .into_serde()
+            .unwrap_or_default();
         return Msg::SetAll(data.input, data.todos);
     }
 }

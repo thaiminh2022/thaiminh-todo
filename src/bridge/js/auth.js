@@ -18,6 +18,7 @@ const provider = new GoogleAuthProvider();
 
 
 export async function login_email_password(email, password) {
+
     setPersistence(auth, browserSessionPersistence)
     let userCridentials = await signInWithEmailAndPassword(auth, email, password)
 
@@ -25,6 +26,8 @@ export async function login_email_password(email, password) {
     window.location.replace("/todo");
 }
 export async function login_google_accout() {
+
+
     let credentials = await signInGoogle();
     console.log(credentials.user);
     // Login OK!
@@ -54,13 +57,33 @@ export async function create_emailpassword(email, password) {
 
 
 
+
 export async function log_out() {
     await signOut(auth);
 }
-export async function get_user_uid() {
-    let user = await auth.currentUser;
-    return user.uid;
+
+export function get_user_uid() {
+    try{
+        let user = auth.currentUser;
+        return user.uid;
+    }
+    catch(error){
+        console.log(error);
+    }
+    
 }
+export function get_user_display_name() {
+    try{
+        let user = auth.currentUser;
+        return user.displayName;
+    }
+    catch (err){
+        console.log(err);
+    }
+    
+}
+
+
 
 window.mobileAndTabletCheck = function () {
     let check = false;

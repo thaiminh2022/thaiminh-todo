@@ -1,7 +1,9 @@
 use web_sys::HtmlInputElement;
 use yew::prelude::*;
 
-use super::super::bridge::{get_user_uid, log, log_out, login_email_password, login_google_accout};
+use super::super::bridge::{
+    clear_item_storage, get_user_uid, log, log_out, login_email_password, login_google_accout,
+};
 use super::super::custom::CustomButton;
 
 pub struct LoginPage {
@@ -100,6 +102,8 @@ impl Component for LoginPage {
 
         match msg {
             Msg::LoginEmailPasswordAsync => {
+                clear_item_storage();
+
                 link.send_future(LoginPage::login_emailpassword(
                     self.login_email.clone(),
                     self.login_password.clone(),
@@ -109,6 +113,8 @@ impl Component for LoginPage {
             Msg::LoginGoogleAsync => {
                 // comments for holder
                 log("Hello Google!");
+                clear_item_storage();
+
                 let link = link.clone();
                 wasm_bindgen_futures::spawn_local(async move {
                     let result = login_google_accout().await;
@@ -125,6 +131,8 @@ impl Component for LoginPage {
             }
             Msg::LogOutAsync => {
                 let link = link.clone();
+
+                clear_item_storage();
 
                 wasm_bindgen_futures::spawn_local(async move {
                     let result = log_out().await;
@@ -181,7 +189,7 @@ impl LoginPage {
         };
     }
     async fn get_uid() -> Msg {
-        let data = get_user_uid().await;
+        let data = get_user_uid();
 
         match data {
             Ok(s) => return Msg::Log(s.as_string().unwrap_or("user_1".to_string())),

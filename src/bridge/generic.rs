@@ -10,4 +10,6 @@ extern "C" {
     pub fn log(msg: &str);
 
     pub fn log_json(msg: &str);
+
+    pub fn page_reloaded() -> bool;
 }
