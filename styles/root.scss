@@ -1,7 +1,7 @@
 :root {
 
     /* default color theme */
-    --bg-primary-300: hsl(212, 96%, 78%);
+    --bg-primary-300: #F7FFF7;
     --bg-primary-400: hsl(213, 94%, 69%);
     --bg-primary-450: hsl(213, 96%, 65%);
 
@@ -33,7 +33,7 @@ html {
 .dark-mode {
 
     &>* {
-        --bg-primary-300: hsl(218, 23%, 21%);
+        --bg-primary-300: #293242;
         --bg-primary-400: #3D5A80;
         --bg-primary-450: #98C1D9;
 

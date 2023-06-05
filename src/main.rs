@@ -9,6 +9,7 @@ mod comps;
 mod custom;
 mod data;
 
+
 use bridge::*;
 use comps::{Counter, LoginPage, Model, NotFound};
 use custom::CustomButton;
@@ -183,7 +184,7 @@ impl Component for App {
             // }
 
             wasm_bindgen_futures::spawn_local(async move {
-                TimeoutFuture::new(500).await;
+                TimeoutFuture::new(400).await;
                 // Do something here after the one second timeout is up!
                 link.send_message(App::fetch_database().await);
                 link.send_message(App::update_display_name().await);
